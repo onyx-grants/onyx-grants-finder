@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Black Business Grant Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 25px;
+      max-width: 800px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #000;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #searchresults {
+      margin-top: 40px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="grantForm">
+    <h2>Find Grants for Black-Owned Businesses</h2>
+
+    <label for="keywords">Describe your funding need:</label>
+    <input type="text" id="keywords" name="keywords" placeholder="e.g., startup, nonprofit, Black women in tech">
+
+    <label for="category">Select your business category:</label>
+    <select id="category" name="category">
+      <option value="">-- Choose a category --</option>
+      <option value="Technology">Technology</option>
+      <option value="Health">Health & Wellness</option>
+      <option value="Retail">Retail / Fashion</option>
+      <option value="Beauty">Beauty / Personal Care</option>
+      <option value="Food">Food & Beverage</option>
+      <option value="Nonprofit">Nonprofit</option>
+      <option value="Education">Education / Childcare</option>
+      <option value="Construction">Construction / Trades</option>
+      <option value="Transportation">Transportation / Delivery</option>
+      <option value="Arts">Arts / Creative</option>
+      <option value="Consulting">Consulting / Services</option>
+      <option value="Finance">Finance / Accounting</option>
+    </select>
+
+    <input type="submit" value="Search Grants">
+  </form>
+
+  <div id="searchresults"></div>
+
+  <script>
+    // Trigger search when form is submitted
+    document.getElementById("grantForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get form inputs
+      const keywords = document.getElementById("keywords").value.trim();
+      const category = document.getElementById("category").value.trim();
+
+      // Build search query
+      const searchQuery = `${keywords} ${category} Black-owned business grant application deadline after May 15 2025 site:grants.gov OR site:helloalice.com OR site:naacp.org OR site:opportunityhub.co OR site:ifundwomen.com`;
+
+      // Run the search using Google Programmable Search Engine
+      google.search.cse.element.getElement("searchresults").execute(searchQuery);
+    });
+
+    function onLoad() {
+      // Load the search engine
+      google.search.cse.element.render({
+        div: "searchresults",
+        tag: "search"
+      });
+    }
+  </script>
+
+  <!-- ✅ Replace YOUR_SEARCH_ENGINE_ID with your Google CSE ID -->
+  <script async src="https://cse.google.com/cse.js?cx=93466f106dc7b4aff " onload="onLoad()"></script>
+
+</body>
+</html>
